@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A2744">
+<title>socialeyes · Dry Eye Center NC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --navy: #1A2744;
+  --navy2: #223060;
+  --gold: #C4974A;
+  --gold2: #D4A85A;
+  --goldl: #F5EDD8;
+  --cream: #F5F2EC;
+  --cream2: #EDE9E0;
+  --white: #FFFFFF;
+  --border: #DDD9D0;
+  --t1: #2C2C2C;
+  --t2: #5A5A5A;
+  --t3: #9A9A9A;
+  --teal: #2A7F7F;
+  --teall: #E0F2F1;
+  --sb-w: 210px;
+  --top-h: 58px;
+  --font: 'DM Sans', sans-serif;
+  --serif: 'Cormorant Garamond', serif;
+  --sh: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --shh: 0 8px 28px rgba(0,0,0,.12);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent }
+html { font-size:14px; line-height:1.6; -webkit-text-size-adjust:100% }
+body { font-family:var(--font); background:var(--cream); color:var(--t1); display:flex; height:100dvh; overflow:hidden }
+
+/* ── SIDEBAR ── */
+#sb {
+  width:var(--sb-w); background:var(--white); border-right:1px solid var(--border);
+  display:flex; flex-direction:column; flex-shrink:0; z-index:100;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.sb-logo {
+  padding:22px 18px 18px;
+  border-bottom:1px solid var(--border);
+}
+.sb-logo-text {
+  font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:22px; color:var(--gold); letter-spacing:-.3px; display:block;
+}
+.sb-logo-sub {
+  font-size:9px; text-transform:uppercase; letter-spacing:1.8px;
+  color:var(--t3); margin-top:2px; font-weight:500;
+}
+.sb-nav { padding:12px 10px; flex:1; overflow-y:auto }
+.sb-nav::-webkit-scrollbar { display:none }
+.sb-section { font-size:9px; text-transform:uppercase; letter-spacing:1.4px; color:var(--t3); padding:10px 8px 5px; font-weight:600 }
+.ni {
+  display:flex; align-items:center; gap:9px; padding:9px 10px; border-radius:7px;
+  font-size:12.5px; font-weight:400; color:var(--t2); cursor:pointer;
+  transition:all .18s; border:none; background:transparent; width:100%; text-align:left;
+  margin-bottom:1px; text-decoration:none;
+}
+.ni:hover { background:var(--cream); color:var(--t1) }
+.ni.on { background:var(--goldl); color:var(--gold); font-weight:500 }
+.ni-ico { width:15px; height:15px; flex-shrink:0; opacity:.6 }
+.ni.on .ni-ico, .ni:hover .ni-ico { opacity:1 }
+.sb-foot { padding:14px 14px; border-top:1px solid var(--border) }
+.sb-foot-link { display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--t3); text-decoration:none; margin-bottom:4px; transition:color .15s }
+.sb-foot-link:hover { color:var(--gold) }
+.sb-foot-link svg { width:11px; height:11px; fill:currentColor }
+
+/* ── TOP BAR ── */
+#top {
+  height:var(--top-h); background:var(--navy); display:flex; align-items:center;
+  justify-content:space-between; padding:0 22px; gap:16px; flex-shrink:0;
+}
+.top-brand { display:flex; align-items:center; gap:14px }
+.top-brand-name {
+  font-family:var(--serif); font-size:13px; font-weight:500; color:var(--gold);
+  letter-spacing:2.5px; text-transform:uppercase; line-height:1.2;
+}
+.top-brand-sub { font-size:9px; color:rgba(255,255,255,.4); letter-spacing:1.2px; text-transform:uppercase; margin-top:2px }
+.top-divider { width:1px; height:28px; background:rgba(255,255,255,.15) }
+.top-channels { display:flex; gap:10px }
+.ch-pill {
+  padding:3px 11px; border-radius:20px; border:1px solid rgba(255,255,255,.2);
+  font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,.6);
+  cursor:pointer; transition:all .15s; font-weight:500; font-family:var(--font);
+  background:transparent;
+}
+.ch-pill:hover,.ch-pill.on { border-color:var(--gold); color:var(--gold); background:rgba(196,151,74,.1) }
+.top-right { display:flex; flex-direction:column; align-items:flex-end; gap:2px }
+.top-phone { font-size:10px; color:rgba(255,255,255,.5); letter-spacing:.3px }
+
+/* ── MAIN ── */
+#main { flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden }
+#content { flex:1; display:flex; flex-direction:column; overflow-y:auto; overflow-x:hidden; padding:24px; gap:20px; -webkit-overflow-scrolling:touch }
+
+/* ── BOT HERO ── */
+.bot-hero {
+  background:var(--white); border-radius:12px; border:1px solid var(--border);
+  padding:24px 28px; box-shadow:var(--sh);
+  display:flex; align-items:flex-start; gap:20px;
+}
+.bot-avatar {
+  width:54px; height:54px; border-radius:14px;
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  position:relative;
+}
+.bot-avatar::after {
+  content:''; position:absolute; inset:0; border-radius:14px;
+  border:1.5px solid var(--gold); opacity:.4;
+}
+.bot-avatar svg { width:26px; height:26px; fill:var(--gold) }
+.bot-info { flex:1 }
+.bot-name { font-family:var(--serif); font-size:22px; font-weight:500; color:var(--t1); margin-bottom:3px }
+.bot-name em { font-style:italic; color:var(--gold) }
+.bot-tagline { font-size:12.5px; color:var(--t2); line-height:1.6; max-width:600px }
+.bot-status { display:flex; align-items:center; gap:6px; margin-top:8px; font-size:11px; color:var(--t3) }
+.status-dot { width:7px; height:7px; border-radius:50%; background:#22C55E; animation:pulse 2s infinite }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+/* ── KEYBOARD HINT ── */
+.kbd-hint {
+  display:inline-flex; align-items:center; gap:5px; margin-top:10px;
+  font-size:10.5px; color:var(--t3);
+}
+.kbd {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:1px 6px; border-radius:4px;
+  background:var(--cream2); border:1px solid var(--border);
+  font-size:10px; font-weight:600; color:var(--t2);
+  font-family:var(--font); line-height:1.6;
+}
+
+/* ── CATEGORY PICKER ── */
+.cat-section { display:flex; flex-direction:column; gap:12px }
+.cat-label { font-size:10px; text-transform:uppercase; letter-spacing:1.8px; color:var(--t3); font-weight:600 }
+.cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px }
+.cat-card {
+  background:var(--white); border-radius:10px; border:1.5px solid var(--border);
+  padding:14px 15px; cursor:pointer; transition:all .2s; box-shadow:var(--sh);
+  display:flex; flex-direction:column; gap:5px; text-align:left;
+  font-family:var(--font); position:relative; overflow:hidden;
+}
+.cat-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:var(--border); transition:background .2s;
+}
+.cat-card:hover { border-color:var(--gold); transform:translateY(-2px); box-shadow:var(--shh) }
+.cat-card:hover::before { background:var(--gold) }
+.cat-card.sel { border-color:var(--gold); background:var(--goldl) }
+.cat-card.sel::before { background:var(--gold) }
+.cat-card-ico { font-size:20px; margin-bottom:2px }
+.cat-card-name { font-size:12.5px; font-weight:600; color:var(--t1) }
+.cat-card-sub { font-size:11px; color:var(--t3); line-height:1.4 }
+
+/* ── CHAT MODAL ── */
+#chat-modal {
+  display:none;
+  position:fixed; inset:0; z-index:300;
+  align-items:center; justify-content:center; padding:20px;
+}
+#chat-modal.open { display:flex }
+#chat-backdrop {
+  position:absolute; inset:0;
+  background:rgba(15,22,42,.3);
+  backdrop-filter:blur(2px);
+}
+.chat-wrap {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column;
+  background:var(--white); border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:0 20px 60px rgba(15,22,42,.25), 0 4px 16px rgba(15,22,42,.1);
+  width:500px; height:580px;
+  overflow:hidden;
+  animation:popIn .22s cubic-bezier(.34,1.3,.64,1) forwards;
+}
+@keyframes popIn {
+  from { transform:scale(.88) translateY(20px); opacity:0 }
+  to   { transform:scale(1)   translateY(0);    opacity:1 }
+}
+.chat-header { padding:12px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between }
+.chat-header-left { display:flex; align-items:center; gap:10px }
+.chat-sel-badge { padding:4px 11px; border-radius:20px; background:var(--goldl); border:1px solid rgba(196,151,74,.3); font-size:11px; font-weight:600; color:var(--gold) }
+.chat-header-hint { font-size:11px; color:var(--t3) }
+.btn-ghost-sm { background:none; border:1px solid var(--border); border-radius:6px; padding:4px 10px; font-size:11px; color:var(--t2); cursor:pointer; font-family:var(--font); transition:all .15s }
+.btn-ghost-sm:hover { border-color:var(--gold); color:var(--gold) }
+.chat-msgs { flex:1; overflow-y:auto; padding:18px; display:flex; flex-direction:column; gap:14px; scrollbar-width:thin; scrollbar-color:var(--border) transparent }
+.msg { display:flex; gap:9px; max-width:88% }
+.msg.u { align-self:flex-end; flex-direction:row-reverse }
+.m-av { width:30px; height:30px; border-radius:9px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px }
+.m-b { padding:11px 14px; border-radius:10px; font-size:12.5px; line-height:1.68 }
+.msg.a .m-b { background:var(--cream); border:1px solid var(--border); color:var(--t1); border-radius:4px 10px 10px 10px }
+.msg.u .m-b { background:var(--navy); color:rgba(255,255,255,.92); border-radius:10px 4px 10px 10px }
+.m-b b,.m-b strong { font-weight:600 }
+.m-b em { font-style:italic }
+.m-b code { background:rgba(0,0,0,.07); padding:1px 5px; border-radius:4px; font-size:11.5px; font-family:monospace }
+.typing { display:flex; gap:4px; padding:11px 14px; background:var(--cream); border:1px solid var(--border); border-radius:4px 10px 10px 10px; width:fit-content }
+.td { width:5px; height:5px; border-radius:50%; background:var(--t3); animation:bop 1.2s infinite }
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* ── TONE SELECTOR ── */
+.tone-bar {
+  padding:8px 16px 0;
+  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+}
+.tone-label {
+  font-size:9.5px; text-transform:uppercase; letter-spacing:1.2px;
+  color:var(--t3); font-weight:600; margin-right:2px; white-space:nowrap;
+}
+.tone-pill {
+  padding:3px 10px; border-radius:16px; border:1.5px solid var(--border);
+  background:var(--white); font-size:10.5px; font-weight:500; cursor:pointer;
+  color:var(--t2); transition:all .15s; white-space:nowrap; font-family:var(--font);
+}
+.tone-pill:hover { border-color:var(--gold); color:var(--gold) }
+.tone-pill.on { border-color:var(--gold); background:var(--goldl); color:var(--gold) }
+
+/* ── SECTION COPY BUTTONS ── */
+.section-block { position:relative; margin-top:10px }
+.section-copy {
+  position:absolute; top:4px; right:4px;
+  padding:2px 8px; border-radius:5px; border:1px solid var(--border);
+  background:var(--white); font-size:10px; font-weight:500; cursor:pointer;
+  color:var(--t3); transition:all .15s; font-family:var(--font);
+  opacity:0; pointer-events:none;
+}
+.section-block:hover .section-copy { opacity:1; pointer-events:auto }
+.section-copy:hover { border-color:var(--gold); color:var(--gold) }
+.section-header {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px;
+  color:var(--t3); margin-bottom:4px;
+}
+.section-content {
+  background:var(--cream2); border-radius:6px; padding:8px 10px;
+  font-size:12px; line-height:1.6; color:var(--t1);
+  border:1px solid var(--border);
+}
+
+/* Suggestions after response */
+.suggest-chips { display:flex; gap:5px; flex-wrap:wrap; margin-top:6px }
+.sc { padding:5px 11px; border-radius:18px; border:1.5px solid var(--border); background:var(--white); font-size:11px; font-weight:500; cursor:pointer; color:var(--t2); transition:all .15s; white-space:nowrap; font-family:var(--font) }
+.sc:hover { border-color:var(--gold); color:var(--gold); background:var(--goldl) }
+
+.chat-in { padding:10px 16px 14px; border-top:1px solid var(--border) }
+.quick-row { display:flex; gap:5px; margin-bottom:9px; flex-wrap:wrap }
+.qc { padding:4px 11px; border-radius:18px; border:1.5px solid var(--border); background:var(--white); font-size:11px; font-weight:500; cursor:pointer; color:var(--t2); transition:all .15s; white-space:nowrap; font-family:var(--font) }
+.qc:hover { border-color:var(--gold); color:var(--gold) }
+.in-row { display:flex; gap:8px; align-items:flex-end }
+.in-col { flex:1; display:flex; flex-direction:column; gap:4px }
+.cin { width:100%; padding:9px 13px; border-radius:9px; border:1.5px solid var(--border); font-family:var(--font); font-size:12.5px; color:var(--t1); outline:none; resize:none; max-height:90px; transition:border-color .15s; background:var(--white) }
+.cin:focus { border-color:var(--gold) }
+.cin-meta { display:flex; justify-content:flex-end; min-height:14px }
+.char-count { font-size:10px; color:var(--t3); transition:color .15s }
+.char-count.warn { color:#F59E0B }
+.char-count.over { color:#EF4444; font-weight:600 }
+.send { padding:9px 18px; border-radius:9px; background:var(--navy); color:var(--white); border:none; font-family:var(--font); font-weight:600; font-size:12.5px; cursor:pointer; transition:all .15s; white-space:nowrap; display:flex; align-items:center; gap:6px; align-self:flex-end; height:38px }
+.send:hover { background:var(--navy2) }
+.send:disabled { opacity:.45; cursor:not-allowed }
+.send svg { width:14px; height:14px; fill:currentColor }
+
+/* ── HAMBURGER ── */
+#hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; color:rgba(255,255,255,.7) }
+#hamburger svg { width:20px; height:20px; fill:currentColor }
+#sb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:90 }
+#sb-overlay.open { display:block }
+
+/* ── COPY TOAST ── */
+#toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--navy); color:#fff; padding:9px 20px; border-radius:20px; font-size:12.5px; font-weight:500; z-index:999; pointer-events:none; opacity:0; transition:opacity .3s }
+#toast.show { opacity:1 }
+
+/* ── MINI CALENDAR ── */
+.mini-cal {
+  flex-shrink:0; margin-left:auto;
+  display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+}
+.mc-date-label {
+  font-size:11px; font-weight:600; color:var(--t3);
+  text-transform:uppercase; letter-spacing:.8px; text-align:right;
+}
+.mc-day-big {
+  font-family:var(--serif); font-size:28px; font-weight:500;
+  color:var(--gold); line-height:1; text-align:right;
+}
+.mc-month-label {
+  font-size:10px; color:var(--t3); letter-spacing:.5px; text-align:right;
+}
+.mc-grid {
+  display:grid; grid-template-columns:repeat(7,22px); gap:2px;
+  margin-top:4px;
+}
+.mc-hd {
+  width:22px; height:16px; display:flex; align-items:center; justify-content:center;
+  font-size:8.5px; font-weight:700; color:var(--t3); letter-spacing:.3px;
+}
+.mc-cell {
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  font-size:10px; color:var(--t2); border-radius:5px; cursor:default;
+  font-family:var(--font); font-weight:400;
+}
+.mc-cell.empty { visibility:hidden }
+.mc-cell.today {
+  background:var(--navy); color:var(--white);
+  font-weight:600; border-radius:6px;
+}
+.mc-cell.other { color:var(--border) }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  #sb{position:fixed;top:0;left:0;height:100dvh;transform:translateX(-100%);z-index:200;box-shadow:none}
+  #sb.open{transform:none;box-shadow:4px 0 32px rgba(0,0,0,.22)}
+  #hamburger{display:flex}
+  #main{margin-left:0!important}
+  #top{padding:0 14px;gap:10px}
+  .top-right{display:none}
+  .top-channels{display:none}
+  .top-brand-name{font-size:11px;letter-spacing:1.2px}
+  .top-brand-sub{font-size:8px}
+  #content{padding:10px;gap:10px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .bot-hero{padding:14px;gap:12px}
+  .mini-cal{display:none}
+  .bot-avatar{width:42px;height:42px;border-radius:11px;flex-shrink:0}
+  .bot-avatar svg{width:20px;height:20px}
+  .bot-name{font-size:17px}
+  .bot-tagline{font-size:12px;line-height:1.5}
+  .bot-status{font-size:10px}
+  .cat-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .cat-card{padding:11px 12px}
+  .cat-card-ico{font-size:17px;margin-bottom:2px}
+  .cat-card-name{font-size:11.5px}
+  .cat-card-sub{display:none}
+  .chat-wrap{width:100%;height:88vh;max-height:none;border-radius:14px}
+  #chat-modal{padding:12px}
+  .quick-row{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:3px;gap:5px;scrollbar-width:none}
+  .quick-row::-webkit-scrollbar{display:none}
+  .qc{white-space:nowrap;flex-shrink:0;font-size:11px;padding:4px 10px}
+  .in-row{gap:7px}
+  .cin{font-size:12px;padding:8px 11px}
+  .send{padding:8px 14px;font-size:12px;gap:4px}
+  .suggest-chips{gap:4px}
+  .sc{font-size:10.5px;padding:4px 9px}
+  .chat-header{padding:10px 14px;gap:6px}
+  .chat-header-hint{display:none}
+  .chat-sel-badge{font-size:10.5px}
+  .btn-ghost-sm{padding:4px 8px;font-size:10.5px}
+  .cat-label{font-size:9px;letter-spacing:1.5px}
+  .tone-bar{padding:6px 12px 0;gap:4px}
+  .tone-pill{font-size:10px;padding:2px 8px}
+  .kbd-hint{display:none}
+}
+
+@media(max-width:480px){
+  #content{padding:8px;gap:8px}
+  .bot-hero{padding:12px}
+  .bot-avatar{width:38px;height:38px}
+  .bot-name{font-size:15px}
+  .bot-tagline{font-size:11.5px}
+  .cat-grid{gap:7px}
+  .cat-card{padding:10px 11px}
+  .cat-card-ico{font-size:16px}
+  .cat-card-name{font-size:11px}
+  .chat-msgs{padding:10px}
+  .m-b{font-size:11.5px}
+  #top{padding:0 11px}
+  .top-brand-name{font-size:10px;letter-spacing:.8px}
+}
+
+@media(max-width:768px) and (orientation:landscape){
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .bot-tagline{display:none}
+  #content{gap:7px}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sb">
+  <div class="sb-logo">
+    <span class="sb-logo-text">socialeyes</span>
+    <div class="sb-logo-sub">Content Studio</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-section">Workspace</div>
+    <a class="ni" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>Dashboard</a>
+    <a class="ni" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><path d="M11 1a.5.5 0 01.5.5V2H13a1.5 1.5 0 011.5 1.5v10A1.5 1.5 0 0113 15H3a1.5 1.5 0 01-1.5-1.5v-10A1.5 1.5 0 013 2h1.5v-.5a.5.5 0 011 0V2h5v-.5A.5.5 0 0111 1z"/></svg>Content Calendar</a>
+    <a class="ni" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H2zm1 3h10v6H3V5z"/></svg>Content Planner</a>
+    <a class="ni" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><path d="M14 1a1 1 0 011 1v8a1 1 0 01-1 1H4.414A2 2 0 003 11.586l-2 2V2a1 1 0 011-1h12z"/></svg>Template Library</a>
+    <a class="ni" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/><path d="M5.5 6.5a2.5 2.5 0 015 0c0 1.5-2.5 3-2.5 3" stroke="white" stroke-width="1.2" fill="none"/><circle cx="8" cy="12" r=".8" fill="white"/></svg>Stock Library</a>
+
+    <div class="sb-section" style="margin-top:8px">AI Studio</div>
+    <a class="ni on" href="#"><svg class="ni-ico" viewBox="0 0 16 16" fill="currentColor"><path d="M6 12.796V3.204L11.481 8 6 12.796z"/></svg>Content Bot 👁</a>
+  </div>
+  <div class="sb-foot">
+    <a class="sb-foot-link" href="https://www.dryeyecenterofnc.com" target="_blank"><svg viewBox="0 0 16 16"><path d="M0 8a8 8 0 1116 0A8 8 0 010 8zm7.5-6.923V4H5.145A7.97 7.97 0 017.5 1.077zM4.09 4a9.267 9.267 0 01.64-1.539A7.025 7.025 0 002.255 4H4.09zm-.582 3.5H1.674a6.958 6.958 0 00-.656 2.5h2.49A12.5 12.5 0 013.508 7.5zm.338 2.5H1.674a6.958 6.958 0 00.656 2.5h2.146A12.5 12.5 0 013.846 10zM8.5 1.077V4h2.355A7.97 7.97 0 008.5 1.077zM11.91 4h1.835A7.025 7.025 0 0011.27 2.461 9.267 9.267 0 0111.91 4zm.494 3.5h-2.49a12.5 12.5 0 01.337 2.5h2.49a6.958 6.958 0 00-.337-2.5zM8.5 4.847V7.5h2.99A12.495 12.495 0 008.5 4.847zM7.5 7.5V4.847A12.495 12.495 0 004.51 7.5H7.5z"/></svg>dryeyecenterofnc.com</a>
+    <a class="sb-foot-link" href="tel:9194432557"><svg viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z"/></svg>(919) 443-2557</a>
+  </div>
+</nav>
+
+<div id="sb-overlay" onclick="closeSb()"></div>
+
+<!-- MAIN -->
+<div id="main">
+  <!-- TOP BAR -->
+  <div id="top">
+    <div class="top-brand">
+      <button id="hamburger" onclick="toggleSb()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+      <div>
+        <div class="top-brand-name">Dry Eye Center of NC</div>
+        <div class="top-brand-sub">AI Content Studio · socialeyes</div>
+      </div>
+      <div class="top-divider"></div>
+      <div class="top-channels">
+        <button class="ch-pill on">SOCIAL</button>
+        <button class="ch-pill">EMAIL</button>
+        <button class="ch-pill">SMS</button>
+        <button class="ch-pill">BLOG</button>
+      </div>
+    </div>
+    <div class="top-right">
+      <span class="top-phone">Call (919) 443-2557</span>
+      <span class="top-phone">Text (833) 716-4252</span>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <!-- BOT HERO -->
+    <div class="bot-hero">
+      <div class="bot-avatar">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      </div>
+      <div class="bot-info">
+        <div class="bot-name"><em>Iris</em> — Dry Eye Content Bot</div>
+        <div class="bot-tagline">I'm your AI content specialist for Dry Eye Center of NC. Pick a content category below, tell me what you need, and I'll craft HIPAA-compliant, platform-ready copy — drawing from your treatment offerings, patient education library, and seasonal campaigns.</div>
+        <div class="bot-status"><span class="status-dot"></span>Online · Trained on Dry Eye Center of NC</div>
+        <div class="kbd-hint">
+          Press <span class="kbd">⌘K</span> or <span class="kbd">/</span> to open Iris
+        </div>
+      </div>
+      <div class="mini-cal" id="mini-cal"></div>
+    </div>
+
+    <!-- CATEGORY PICKER -->
+    <div class="cat-section">
+      <div class="cat-label">Choose a content category to get started</div>
+      <div class="cat-grid" id="cat-grid">
+        <button class="cat-card" data-cat="ig" onclick="selectCat(this)">
+          <div class="cat-card-ico">📸</div>
+          <div class="cat-card-name">Instagram Post</div>
+          <div class="cat-card-sub">Feed captions, carousels & hashtag sets</div>
+        </button>
+        <button class="cat-card" data-cat="fb" onclick="selectCat(this)">
+          <div class="cat-card-ico">👍</div>
+          <div class="cat-card-name">Facebook Post</div>
+          <div class="cat-card-sub">Educational posts, event promos & patient stories</div>
+        </button>
+        <button class="cat-card" data-cat="carousel" onclick="selectCat(this)">
+          <div class="cat-card-ico">📱</div>
+          <div class="cat-card-name">IG Carousel</div>
+          <div class="cat-card-sub">Slide-by-slide scripts for educational series</div>
+        </button>
+        <button class="cat-card" data-cat="reel" onclick="selectCat(this)">
+          <div class="cat-card-ico">🎥</div>
+          <div class="cat-card-name">Reel / Video Script</div>
+          <div class="cat-card-sub">Short-form video hooks, scripts & captions</div>
+        </button>
+        <button class="cat-card" data-cat="email" onclick="selectCat(this)">
+          <div class="cat-card-ico">📧</div>
+          <div class="cat-card-name">Email Campaign</div>
+          <div class="cat-card-sub">Newsletter, promo blast or patient series</div>
+        </button>
+        <button class="cat-card" data-cat="sms" onclick="selectCat(this)">
+          <div class="cat-card-ico">💬</div>
+          <div class="cat-card-name">SMS / Text Message</div>
+          <div class="cat-card-sub">Appointment reminders & short promos</div>
+        </button>
+        <button class="cat-card" data-cat="blog" onclick="selectCat(this)">
+          <div class="cat-card-ico">📝</div>
+          <div class="cat-card-name">Blog Article</div>
+          <div class="cat-card-sub">SEO-optimized patient education articles</div>
+        </button>
+        <button class="cat-card" data-cat="edu" onclick="selectCat(this)">
+          <div class="cat-card-ico">🏥</div>
+          <div class="cat-card-name">Patient Education</div>
+          <div class="cat-card-sub">Handouts, FAQs & procedure explainers</div>
+        </button>
+        <button class="cat-card" data-cat="seasonal" onclick="selectCat(this)">
+          <div class="cat-card-ico">🌿</div>
+          <div class="cat-card-name">Seasonal Campaign</div>
+          <div class="cat-card-sub">Spring allergies, summer heat, fall dry air & winter</div>
+        </button>
+        <button class="cat-card" data-cat="awareness" onclick="selectCat(this)">
+          <div class="cat-card-ico">🎗</div>
+          <div class="cat-card-name">Awareness Month</div>
+          <div class="cat-card-sub">July Dry Eye Awareness Month, World Sight Day & health observances</div>
+        </button>
+        <button class="cat-card" data-cat="promo" onclick="selectCat(this)">
+          <div class="cat-card-ico">🏷</div>
+          <div class="cat-card-name">Promotion / Special</div>
+          <div class="cat-card-sub">Free screenings, new patient offers & events</div>
+        </button>
+        <button class="cat-card" data-cat="team" onclick="selectCat(this)">
+          <div class="cat-card-ico">👩‍⚕️</div>
+          <div class="cat-card-name">Meet the Team</div>
+          <div class="cat-card-sub">Provider spotlights & office culture content</div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CHAT MODAL -->
+<div id="chat-modal">
+  <div id="chat-backdrop" onclick="closeChat()"></div>
+  <div class="chat-wrap" id="chat-wrap">
+    <div style="height:4px;background:linear-gradient(90deg,var(--navy),var(--gold));flex-shrink:0"></div>
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div style="width:28px;height:28px;border-radius:8px;background:var(--goldl);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">👁</div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--t1)" id="sel-badge">Iris · Ready</div>
+          <div style="font-size:10.5px;color:var(--t3);line-height:1.3" id="sel-hint">Select a category</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px">
+        <button class="btn-ghost-sm" onclick="clearChat()">New Chat</button>
+        <button onclick="closeChat()" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:14px;line-height:1;transition:all .15s;font-family:var(--font)" onmouseenter="this.style.background='var(--cream)';this.style.color='var(--t1)'" onmouseleave="this.style.background='transparent';this.style.color='var(--t3)'">✕</button>
+      </div>
+    </div>
+
+    <!-- TONE SELECTOR -->
+    <div class="tone-bar">
+      <span class="tone-label">Tone</span>
+      <button class="tone-pill on" data-tone="warm" onclick="selectTone(this)">Warm</button>
+      <button class="tone-pill" data-tone="clinical" onclick="selectTone(this)">Clinical</button>
+      <button class="tone-pill" data-tone="urgent" onclick="selectTone(this)">Urgent</button>
+      <button class="tone-pill" data-tone="playful" onclick="selectTone(this)">Playful</button>
+    </div>
+
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="chat-in">
+      <div class="quick-row" id="quick-row">
+        <button class="qc" data-q="Write an Instagram caption about dry eye disease and how OptiLight IPL by Lumenis treats MGD and dry eye. Include hashtags.">OptiLight IPL on IG</button>
+        <button class="qc" data-q="Create a July Dry Eye Awareness Month Facebook post about 16 million Americans living with dry eye disease — what they should know and how we can help.">July Dry Eye Month</button>
+        <button class="qc" data-q="Write a 3-slide Instagram carousel: Slide 1 hook about screen time causing dry eye, Slide 2 symptoms to watch for, Slide 3 CTA to book a dry eye screening.">Screen time carousel</button>
+        <button class="qc" data-q="Draft a spring allergy season email for Dry Eye Center of NC patients — subject line, preview text, and body explaining why spring worsens dry eye and how we can help.">Spring allergy email</button>
+        <button class="qc" data-q="Write an SMS message reminding patients to use their FSA/HSA dollars before December 31 to book a dry eye treatment at Dry Eye Center of NC. Keep it under 160 characters.">FSA/HSA SMS</button>
+      </div>
+      <div class="in-row">
+        <div class="in-col">
+          <textarea class="cin" id="chat-in" rows="1" placeholder="Describe the content you need…" onkeydown="handleKey(event)" oninput="handleInput(this)"></textarea>
+          <div class="cin-meta">
+            <span class="char-count" id="char-count" style="display:none"></span>
+          </div>
+        </div>
+        <button class="send" id="send-btn" onclick="sendMsg()">
+          <svg viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 01.11.54l-5.819 14.547a.75.75 0 01-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 01.124-1.33L15.314.037a.5.5 0 01.54.11z"/></svg>
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast">✓ Copied to clipboard</div>
+
+<script>
+/* ── CATEGORY DATA ── */
+const CATS = {
+  ig:        { label: '📸 Instagram Post',    hint: 'Caption + hashtags for Instagram feed' },
+  fb:        { label: '👍 Facebook Post',      hint: 'Educational or promotional Facebook content' },
+  carousel:  { label: '📱 IG Carousel',        hint: 'Slide-by-slide carousel script' },
+  reel:      { label: '🎥 Reel Script',        hint: 'Hook + script for short-form video' },
+  email:     { label: '📧 Email Campaign',     hint: 'Subject line, preview text & full body' },
+  sms:       { label: '💬 SMS Message',        hint: 'Short text for patient outreach (160 chars)' },
+  blog:      { label: '📝 Blog Article',       hint: 'SEO-friendly article for dry eye education' },
+  edu:       { label: '🏥 Patient Education',  hint: 'Handouts, FAQs, procedure explainers' },
+  seasonal:  { label: '🌿 Seasonal Campaign',  hint: 'Season-specific dry eye content' },
+  awareness: { label: '🎗 Awareness Month',    hint: 'July Dry Eye Awareness Month + year-round health observances' },
+  promo:     { label: '🏷 Promotion',          hint: 'Special offers, events & free screenings' },
+  team:      { label: '👩‍⚕️ Meet the Team',   hint: 'Provider spotlights & office culture' },
+};
+
+/* Max tokens by category — long-form types need more room */
+const MAX_TOKENS = {
+  blog: 3000, edu: 2500, email: 2500, carousel: 2000,
+  ig: 1200, fb: 1200, reel: 1500, sms: 600,
+  seasonal: 1500, awareness: 1500, promo: 1200, team: 1200,
+};
+
+const QUICK_PROMPTS = {
+  ig:        ['OptiLight IPL before/after IG post','Dry eye symptoms awareness post','OptiLight IPL by Lumenis spotlight','RF + IPL combination treatment'],
+  fb:        ['Patient testimonial share','Allergy season FB post','Treatment options explainer','Free screening event'],
+  carousel:  ['What is dry eye disease? (5 slides)','Screen time & dry eye (4 slides)','Dry eye treatment options (6 slides)','MGD awareness (4 slides)'],
+  reel:      ['Is it allergies or dry eye? (15s script)','OptiLight IPL treatment walkthrough (15s script)','5 signs you have dry eye','Why screen time worsens dry eyes'],
+  email:     ['Monthly newsletter','New patient welcome series','Spring allergy campaign','Dry Eye Awareness Month blast'],
+  sms:       ['Appointment reminder','FSA/HSA deadline text','Free screening invite','Seasonal trigger alert'],
+  blog:      ['What is dry eye disease?','RF vs. IPL — what is the difference and which is right for you?','13 causes of chronic dry eye','How to manage dry eye at work'],
+  edu:       ['Dry Eye Disease FAQ handout','Post-treatment care guide','MGD patient explainer','Contact lens & dry eye guide'],
+  seasonal:  ['Spring: allergy season','Summer: AC & outdoor heat','Fall: indoor heating begins','Winter: low humidity & heating'],
+  awareness: ['July Dry Eye Awareness Month','World Sight Day (October)','Healthy Aging Month (September)','Digital Eye Strain Month (May)'],
+  promo:     ['Free dry eye screening event','New patient special offer','October awareness promotion','OptiLight IPL treatment package'],
+  team:      ['Doctor spotlight post','PA team introduction','Office tour reel caption','Staff appreciation post'],
+};
+
+/* ── TONE ── */
+const TONE_COPY = {
+  warm:     'Use a warm, empathetic, and encouraging tone. Patients are frustrated and often underdiagnosed — meet them with understanding and hope. Avoid clinical jargon.',
+  clinical: 'Use a clear, precise, clinical tone. Lead with evidence and mechanism. Appropriate for healthcare professionals or highly-informed patients.',
+  urgent:   'Use an urgent, action-driving tone. Create a sense of timeliness — the patient needs to act now. Use short sentences, direct language, and strong CTAs.',
+  playful:  'Use a friendly, conversational, slightly playful tone. Keep it approachable and light while remaining professional. Emojis welcome where appropriate.',
+};
+let selectedTone = 'warm';
+
+function selectTone(el) {
+  document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  selectedTone = el.dataset.tone;
+}
+
+let selectedCat = null;
+let history = [];
+
+/* ── DATE & AWARENESS CONTEXT ── */
+function getDateContext() {
+  const now = new Date();
+  const m = now.getMonth();
+  const d = now.getDate();
+  const y = now.getFullYear();
+  const mn = ['January','February','March','April','May','June','July','August','September','October','November','December'][m];
+  const awareness = [
+    'National Winter Eye Health Month. Indoor heating at annual peak. New Year eye health resolutions. Angle: "Start the year with a dry eye evaluation."',
+    'Low Vision Awareness Month. Indoor heating peak dry eye. Valentine\'s Day: gift a consultation. Angle: "Give the gift of comfortable vision."',
+    'Workplace Eye Wellness Month + Women\'s History Month — women are 2x more likely to develop dry eye disease. Spring allergy pre-season just beginning.',
+    'Women\'s Eye Health & Safety Month (NEI). Spring allergy PEAK — pollen + antihistamines = dry eye double hit. Antihistamines cut tear production significantly.',
+    'Healthy Vision Month (NEI) + Digital Eye Strain Awareness Month. Spring allergies ongoing. Mother\'s Day gift angle — treatment or consultation.',
+    'Cataract Awareness Month. Summer begins — AC, UV exposure, pool chlorine, ceiling fans. Sunglasses awareness. Father\'s Day angles.',
+    '🎗 DRY EYE AWARENESS MONTH — TFOS annual campaign. BIGGEST content month. Every post should connect to dry eye education, treatment urgency, and booking a comprehensive evaluation. Contact Lens Health Week is next month.',
+    'Children\'s Eye Health & Safety Month. Back-to-school screen time explosion. Contact Lens Health Week (last full week of August). Late summer heat and UV.',
+    'Healthy Aging Month. FALL IPL SEASON OPENS — this is the #1 time to promote IPL (lower UV, easier sun avoidance post-treatment). World Sight Day coming in October.',
+    'World Sight Day (second Thursday this month). Fall dryness + indoor heating peak. Halloween costume contact lens safety warning content.',
+    'Diabetic Eye Disease Month. FSA/HSA deadline approaching — Dec 31 urgency building. Holiday screen binge starting. Gratitude + patient testimonials.',
+    '💰 FSA/HSA USE-IT-OR-LOSE-IT — December 31 deadline. URGENT patient messaging. Winter dryness at peak. Holiday gift card angles. Year-end outreach.'
+  ][m];
+  const seasons = [
+    ['Winter','Indoor heating = lowest humidity of the year.'],
+    ['Winter','Peak dry indoor air. Valentine\'s gift angle.'],
+    ['Spring','Allergy pre-season begins. Pollen + antihistamines = dry eye double hit.'],
+    ['Spring','Allergy PEAK. Antihistamines reduce tear production significantly.'],
+    ['Spring','Allergies ongoing. Digital Eye Strain Month.'],
+    ['Summer','AC air, UV, pool chlorine, ceiling fans. Contact lens discomfort peaks.'],
+    ['Summer','DRY EYE AWARENESS MONTH. UV and heat peak.'],
+    ['Summer','Late summer heat. Back-to-school screen explosion.'],
+    ['Fall','BEST SEASON FOR IPL — lower UV, easier sun avoidance post-treatment.'],
+    ['Fall','World Sight Day awareness. Fall dryness and heating peak.'],
+    ['Fall/Winter','FSA/HSA deadline urgency — Dec 31.'],
+    ['Winter','FSA/HSA deadline Dec 31 — urgent. Peak indoor heating.']
+  ][m];
+  const upcoming = m===5 ? 'July is Dry Eye Awareness Month — start teasing awareness content NOW.' : m===6 ? 'You are IN Dry Eye Awareness Month — maximize every post with awareness messaging.' : m===10 ? 'FSA/HSA deadline is December 31 — urgency messaging should ramp up now.' : m===11 ? 'FSA/HSA deadline is December 31 — this is the #1 message right now.' : '';
+  const hashtags = m===6 ? '#DryEyeAwarenessMonth #DryEyeMonth #TFOS #DryEyeAwareness #SeeTheDifference #July' : (m>=2&&m<=4) ? '#SpringDryEye #AllergyEyes #SpringAllergies #DryEye' : (m>=5&&m<=7) ? '#SummerDryEye #SummerEyeCare #DryEye #BeatDryEye' : (m>=8&&m<=9) ? '#FallIPL #FallEyeCare #IPLTreatment #DryEye #TreatDryEye' : '#WinterDryEye #FSA #HealthBenefits #DryEye #IndoorAir';
+  return `TODAY: ${mn} ${d}, ${y} | SEASON: ${seasons[0]} | CURRENT AWARENESS: ${awareness}${upcoming ? ' | UPCOMING: '+upcoming : ''} | TIMELY HASHTAGS: ${hashtags}`;
+}
+
+/* ── SYSTEM PROMPT ── */
+function getSystem(cat) {
+  const catLabel = cat ? CATS[cat]?.label : 'general content';
+  return `You are Iris, an AI content specialist for Dry Eye Center of NC (dryeyecenterofnc.com). You create expert, HIPAA-compliant marketing content for their marketing team.
+
+PRACTICE: Dry Eye Center of NC — specialty dry eye clinic for dry eye disease and meibomian gland dysfunction (MGD). Part of Luxe Aesthetics network, Dr. Renzo Zaldivar MD.
+
+TREATMENTS: OptiLight IPL by Lumenis (FDA-approved for MGD — this is their IPL device, NOT LipiFlow), Radiofrequency (RF) Therapy/TempSure RF (used in combination with IPL for best outcomes), ZEST — Zocular Eyelid System Treatment (okra-based gel deep eyelid cleaning, removes demodex/biofilm/bacteria, Zocular brand), Punctal Plugs (silicone, temporary or permanent), Prokera (amniotic membrane device for severe ocular surface disease), Meibomian Gland Expression & Probing (in-office unclogging of glands), Comprehensive Dry Eye Evaluation (Oculus Keratograph, meibography, osmolarity testing, tear break-up time, interferometry, LipiView imaging, eyelid analysis by oculofacial plastic surgeon), Prescription Drops (Restasis, Xiidra, Cequa, Eyesuvis), At-home management (artificial tears, warm compresses, eyelid hygiene, omega-3 supplements)
+
+IMPORTANT — DO NOT MENTION: LipiFlow (they do NOT offer this — never reference it), TearCare (not offered), MiBoFlo (not offered). The IPL device is specifically OptiLight by Lumenis — always use this name.
+
+PROVIDERS:
+- Dr. Renzo A. Zaldivar, MD — Co-Founder, Board-Certified Oculofacial Plastic Surgeon, Mayo Clinic + Emory fellowship trained, also runs Luxe Aesthetics
+- Dr. Donthan Hudgins, OD — Co-Founder, Optometrist with 25+ years treating dry eye in Raleigh NC, from Raleigh Optometry
+
+PATIENT EDUCATION TOPICS:
+- Dry Eye Disease (DED) — aqueous deficient vs. evaporative dry eye
+- Meibomian Gland Dysfunction (MGD) — most common cause of evaporative dry eye
+- Blepharitis — demodex, seborrheic, anterior/posterior blepharitis
+- Contact Lens Dry Eye — why contacts worsen symptoms
+- Digital Eye Strain — 20-20-20 rule, reduced blink rate
+- Allergy Season — antihistamines dramatically worsen dry eye
+- Hormones & Dry Eye — menopause, pregnancy, oral contraceptives
+- Environmental triggers — AC, low humidity, wind, smoke, heating vents
+
+LIVE DATE & CAMPAIGN CONTEXT:
+${getDateContext()}
+
+FULL YEAR AWARENESS CALENDAR:
+Jan: National Winter Eye Health | Feb: Low Vision Awareness Month | Mar: Workplace Eye Wellness + Women's History Month | Apr: Women's Eye Health & Safety Month (NEI) | May: Healthy Vision Month + Digital Eye Strain Awareness Month | Jun: Cataract Awareness Month + Summer begins | JULY: 🎗 DRY EYE AWARENESS MONTH (TFOS) | Aug: Children's Eye Health + Contact Lens Health Week | Sep: Healthy Aging Month + Fall IPL season | Oct: World Sight Day (2nd Thursday) | Nov: Diabetic Eye Disease Month + FSA/HSA approach | Dec: 💰 FSA/HSA deadline Dec 31
+
+SEASONALITY:
+SPRING (Mar-May): Pollen + antihistamines = dry eye crisis. Best for OptiLight IPL, RF therapy, ZEST, and punctal plugs. Hook: "Your allergy meds are making your dry eye worse."
+SUMMER (Jun-Aug): AC air, UV, chlorine, fans. Contact lens discomfort peaks. Hook: "Summer is destroying your tear film." July = Dry Eye Awareness Month — all-out campaign.
+FALL (Sep-Nov): BEST for IPL — lower UV. Heating starts. Book treatment series now. Hook: "Fall is the #1 season to treat dry eye."
+WINTER (Dec-Feb): Peak heating = lowest indoor humidity. FSA/HSA urgency. Hook: "Your furnace is ruining your eyes."
+
+CONTACT: (919) 443-2557 | Text (833) 716-4252 | dryeyecenterofnc.com
+
+TONE FOR THIS REQUEST: ${TONE_COPY[selectedTone]}
+
+CONTENT RULES: HIPAA-compliant (no patient IDs). No guarantees ("may help" not "will cure"). "Results may vary" on B&A. Always tie content to current month's awareness campaign. IG: 10-15 hashtags including current month hashtags. FB: 3-5 hashtags, educational, conversational. SMS: hard limit 160 characters — always include character count.
+
+CURRENT FOCUS: ${catLabel}
+
+ALWAYS FORMAT:
+IG → **Instagram Caption:** then **Hashtags:**
+Carousel → **Slide 1:** **Slide 2:** etc.
+Email → **Subject Line:** then **Preview Text:** then **Email Body:**
+SMS → **SMS (X chars):** with character count
+Blog → H1, intro, 3-4 H2 sections, meta description
+Patient Ed → title, plain language, bullets, CTA
+
+END every response with:
+FOLLOWUP: [option 1] || [option 2] || [option 3]`;
+}
+
+/* ── MODAL OPEN / CLOSE ── */
+function openChat() {
+  document.getElementById('chat-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('chat-in').focus(), 240);
+}
+function closeChat() {
+  document.getElementById('chat-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── KEYBOARD SHORTCUT — / or Cmd+K ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeChat(); return; }
+  const modal = document.getElementById('chat-modal');
+  const inp = document.getElementById('chat-in');
+  const active = document.activeElement;
+  const inInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA');
+  if ((e.key === '/' && !inInput) || ((e.metaKey || e.ctrlKey) && e.key === 'k')) {
+    e.preventDefault();
+    if (!modal.classList.contains('open')) openChat();
+    else inp.focus();
+  }
+});
+
+/* ── CATEGORY SELECTION ── */
+function selectCat(el) {
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedCat = el.dataset.cat;
+  const cat = CATS[selectedCat];
+  document.getElementById('sel-badge').textContent = cat.label;
+  document.getElementById('sel-hint').textContent = cat.hint;
+
+  /* Update quick prompts */
+  const prompts = QUICK_PROMPTS[selectedCat] || [];
+  document.getElementById('quick-row').innerHTML = prompts.map(p =>
+    `<button class="qc" data-q="${p.replace(/"/g,'&quot;')}">${p}</button>`
+  ).join('');
+  document.getElementById('quick-row').addEventListener('click', quickRowClick);
+
+  /* Show/hide SMS counter */
+  document.getElementById('char-count').style.display = selectedCat === 'sms' ? '' : 'none';
+
+  /* Set placeholder */
+  document.getElementById('chat-in').placeholder = `Ask Iris to create ${cat.hint.toLowerCase()}…`;
+
+  /* Open modal */
+  openChat();
+  history = [];
+  document.getElementById('chat-msgs').innerHTML = '';
+  appendMsg('a', `Got it — I'm ready to create <strong>${cat.label.replace(/[\u{1F300}-\u{1FFFF}]|[☀-⟿]/gu,'').trim()}</strong> content for Dry Eye Center of NC.<br><br>Tell me the topic, audience, and any specifics — or pick a quick prompt below.`);
+}
+
+function quickRowClick(e) {
+  const btn = e.target.closest('[data-q]');
+  if (!btn) return;
+  document.getElementById('chat-in').value = btn.dataset.q;
+  sendMsg();
+}
+
+/* ── SMS CHAR COUNTER & TEXTAREA RESIZE ── */
+function handleInput(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 90) + 'px';
+
+  if (selectedCat === 'sms') {
+    const len = el.value.length;
+    const counter = document.getElementById('char-count');
+    counter.textContent = `${len} / 160`;
+    counter.className = 'char-count' + (len > 160 ? ' over' : len > 130 ? ' warn' : '');
+  }
+}
+
+/* ── CHAT ── */
+async function sendMsg() {
+  const inp = document.getElementById('chat-in');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  inp.style.height = '';
+  if (selectedCat === 'sms') {
+    const counter = document.getElementById('char-count');
+    counter.textContent = '0 / 160';
+    counter.className = 'char-count';
+  }
+  appendMsg('u', msg);
+  history.push({ role: 'user', content: msg });
+  const typ = showTyping();
+  document.getElementById('send-btn').disabled = true;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: MAX_TOKENS[selectedCat] || 1500,
+        system: getSystem(selectedCat),
+        messages: history
+      })
+    });
+    const data = await res.json();
+    let text = data.content?.[0]?.text || 'Sorry, something went wrong. Please try again.';
+    /* Extract follow-up suggestions */
+    let suggestions = [];
+    const fuMatch = text.match(/FOLLOWUP:\s*(.+?)(?:\n|$)/);
+    if (fuMatch) {
+      suggestions = fuMatch[1].split('||').map(s => s.trim()).filter(Boolean).slice(0, 3);
+      text = text.replace(/\nFOLLOWUP:.*$/m, '').trim();
+    }
+    removeEl(typ);
+    appendMsg('a', text, suggestions);
+    history.push({ role: 'assistant', content: text });
+  } catch (e) {
+    removeEl(typ);
+    appendMsg('a', 'Connection issue — please try again in a moment.');
+  }
+  document.getElementById('send-btn').disabled = false;
+}
+
+/* ── SECTION-AWARE RENDERING ── */
+/*
+  For Email and SMS responses, we detect the labelled sections (Subject Line:,
+  Preview Text:, Email Body:, SMS (N chars):) and wrap each in a section block
+  with its own copy button. All other responses use standard inline formatting.
+*/
+const SECTION_RE = /\*\*(Subject Line|Preview Text|Email Body|SMS \(\d+ chars?\)):\*\*/g;
+
+function renderStructured(text) {
+  const parts = text.split(SECTION_RE);
+  if (parts.length <= 1) return null; /* no named sections found */
+
+  let html = '';
+  /* parts[0] is content before first label; then label/content pairs */
+  if (parts[0].trim()) html += `<div class="m-b" style="margin-bottom:6px">${fmt(parts[0])}</div>`;
+  for (let i = 1; i < parts.length; i += 2) {
+    const label = parts[i];
+    const body  = parts[i + 1] || '';
+    html += `<div class="section-block">
+      <div class="section-header">${label}</div>
+      <div class="section-content">${fmt(body.trim())}</div>
+      <button class="section-copy" onclick="copySection(this)" title="Copy ${label}">Copy</button>
+    </div>`;
+  }
+  return html;
+}
+
+function fmt(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+}
+
+function copySection(btn) {
+  const content = btn.previousElementSibling?.innerText || '';
+  navigator.clipboard.writeText(content).then(() => showToast('✓ Copied')).catch(() => {});
+}
+
+function appendMsg(role, text, suggestions = []) {
+  const c = document.getElementById('chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+
+  if (role === 'a') {
+    const structured = (selectedCat === 'email' || selectedCat === 'sms') ? renderStructured(text) : null;
+    const bodyHtml = structured ?? `<div class="m-b">${fmt(text)}</div>`;
+    const suggHtml = suggestions.length
+      ? `<div class="suggest-chips">${suggestions.map(s => `<button class="sc" onclick="useSugg('${s.replace(/'/g, "\\'")}')">${s}</button>`).join('')}<button class="sc" onclick="copyLast(this.closest('.msg'))">📋 Copy all</button></div>`
+      : `<div class="suggest-chips"><button class="sc" onclick="copyLast(this.closest('.msg'))">📋 Copy</button></div>`;
+    div.innerHTML = `<div class="m-av" style="background:var(--goldl)">👁</div><div style="flex:1;min-width:0">${bodyHtml}${suggHtml}</div>`;
+  } else {
+    div.innerHTML = `<div class="m-av" style="background:var(--navy);color:var(--gold);font-size:10px;font-weight:700">YOU</div><div class="m-b">${text}</div>`;
+  }
+
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+}
+
+function showTyping() {
+  const c = document.getElementById('chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'msg a';
+  div.innerHTML = `<div class="m-av" style="background:var(--goldl)">👁</div><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  c.appendChild(div); c.scrollTop = c.scrollHeight; return div;
+}
+function removeEl(el) { if (el?.parentNode) el.parentNode.removeChild(el) }
+
+function useSugg(text) {
+  document.getElementById('chat-in').value = text;
+  sendMsg();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg() }
+}
+
+function clearChat() {
+  document.getElementById('chat-msgs').innerHTML = '';
+  history = [];
+  if (selectedCat) {
+    const cat = CATS[selectedCat];
+    appendMsg('a', `Chat cleared. I'm ready to create more <strong>${cat.label.replace(/[\u{1F300}-\u{1FFFF}]|[☀-⟿]/gu,'').trim()}</strong> content — what do you need?`);
+  } else {
+    appendMsg('a', 'Chat cleared. Close this window and select a category to get started.');
+  }
+}
+
+function copyLast(msgEl) {
+  const text = msgEl?.querySelector('.m-b')?.innerText
+    || [...(msgEl?.querySelectorAll('.section-content') || [])].map(el => el.innerText).join('\n\n')
+    || '';
+  navigator.clipboard.writeText(text).then(() => showToast()).catch(() => {});
+}
+
+function showToast(msg = '✓ Copied to clipboard') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ── SIDEBAR ── */
+function toggleSb() { document.getElementById('sb').classList.toggle('open'); document.getElementById('sb-overlay').classList.toggle('open') }
+function closeSb() { document.getElementById('sb').classList.remove('open'); document.getElementById('sb-overlay').classList.remove('open') }
+
+/* ── CHANNEL PILLS ── */
+document.querySelectorAll('.ch-pill').forEach(p => p.addEventListener('click', function() {
+  document.querySelectorAll('.ch-pill').forEach(x => x.classList.remove('on'));
+  this.classList.add('on');
+}));
+
+/* ── MINI CALENDAR ── */
+(function renderMiniCal(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dayNames = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const firstDay = new Date(y, m, 1).getDay();
+
+  document.getElementById('mini-cal').innerHTML = `
+    <div class="mc-date-label">${dayNames[now.getDay()]} · ${monthNames[m].toUpperCase()}</div>
+    <div class="mc-day-big">${d}</div>
+    <div class="mc-month-label">${monthNames[m]} ${y}</div>
+    <div class="mc-grid">
+      ${dayNames.map(n=>`<div class="mc-hd">${n}</div>`).join('')}
+      ${Array(firstDay).fill('<div class="mc-cell empty"></div>').join('')}
+      ${Array.from({length:daysInMonth},(_,i)=>{
+        const day = i+1;
+        return `<div class="${day===d?'mc-cell today':'mc-cell'}">${day}</div>`;
+      }).join('')}
+    </div>`;
+})();
+
+/* ── INIT QUICK ROW ── */
+document.getElementById('quick-row').addEventListener('click', quickRowClick);
+</script>
+</body>
+</html>
